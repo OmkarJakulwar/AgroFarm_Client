@@ -1,0 +1,90 @@
+<section class=" py-5" *ngIf="selectedProduct" style="width: calc(100% - 30px); padding: right 15px;">
+    <!-- Write the code to display the success and error message after adding product to the cart -->
+
+    <div class="col-12">
+        <h5 *ngIf="successMessage!=null && successMessage!=''" class="alert alert-success" role="alert">
+            {{successMessage}}</h5>
+        <h5 *ngIf="errorMessage!=null && errorMessage!=''" class="alert alert-danger" role="alert">{{errorMessage}}</h5>
+    </div>
+
+    <div class="container-fluid px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6 ">
+                <div class="larger-image">
+                    <img [src]="'assets/Products/'+ selectedProduct.productId +'.jpg'"
+                        class="img-responsive center-block " alt="Image Not Found" onError="this.src='assets/404.png'"
+                        style="width: 100%; max-width: 400px; height: auto;">
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="small mb-1"> Product Details:</div>
+                <h1 class="display-5 fw-bolder">
+                    <div class="text-left text-block">
+                        <h4>
+                            <ins><b>{{selectedProduct.category+" - "+selectedProduct.name}}</b></ins>
+                        </h4>
+                    </div>
+                </h1>
+                <div class="fs-5 mb-3">
+                    <span class="success-message">
+                        <strong>Rs. {{selectedProduct.price *
+                            (1-selectedProduct.discount/100)|number:'1.2-2'}}</strong>
+                        <div class="clearfix"></div>
+                        <span class="field-error-message">
+                            <del>Rs.{{selectedProduct.price|number:'1.2-2'}}</del>
+                        </span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="quantityInput">Quantity:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary" type="button"
+                                (click)="decrementQuantity()">-</button>
+                        </div>
+                        <input type="number" id="quantityInput" name="quantityInput"
+                            [(ngModel)]="selectedProduct.quantity">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button"
+                                (click)="incrementQuantity()">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <strong>
+                        Discount:
+                        <span>
+                            {{selectedProduct.discount/100|percent}}
+                        </span>
+                    </strong>
+                </div>
+
+                <div class="text-justify">
+                    <div *ngFor="let item of selectedProduct.description|productDescription">
+                        <h4>{{item}}</h4> Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore temporibus
+                        optio qui asperiores ut ullam, labore animi repellat consequuntur aliquam eius officia
+                        recusandae dolor molestiae aliquid non, possimus vel et!
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="d-flex">
+                    <div class="row">
+                        <div class="offset-md-0">
+                            <button class="btn btn-outline-dark flex-shrink-0" type="button" style="float: right;"
+                                (click)="addToCart()">
+                                Add To Cart</button>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<br>
+<br>
