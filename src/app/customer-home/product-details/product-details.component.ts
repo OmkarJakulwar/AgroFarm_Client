@@ -37,7 +37,12 @@ export class ProductDetailsComponent implements OnInit {
       cart = [];
     }
 
-
+  // Check if selectedProduct.quantity is initialized
+  if (this.selectedProduct.quantity === undefined || this.selectedProduct.quantity === null) {
+    // If not initialized, show an error message
+    this.errorMessage = "Product quantity is not initialized. Please select a valid quantity.";
+    return; // Exit function
+}
     let customer: Customer = JSON.parse(sessionStorage.getItem("customer") || "{}");
     const cartToAdd: CustomerCart = new CustomerCart();
     const cartProd: CartProduct = new CartProduct();
@@ -46,13 +51,6 @@ export class ProductDetailsComponent implements OnInit {
     let prod: Product = new Product();
     prod.productId = this.selectedProduct.productId;
     prod.name = this.selectedProduct.name;
-
-    // Check if selectedProduct.quantity is initialized
-    if (this.selectedProduct.quantity === undefined || this.selectedProduct.quantity === null) {
-      // If not initialized, show an error message
-      this.errorMessage = "Product quantity is not initialized. Please select a valid quantity.";
-      return; // Exit function
-  }
    
     prod.quantity = this.selectedProduct.quantity;
 
