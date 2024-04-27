@@ -90,9 +90,14 @@ export class CustomerCartComponent implements OnInit {
     this.successMessage = "";
     this.errorMessage = "";
 
+    this.cartList = [];
+
     this.customerCartService.emptyCart(this.loggedInCustomer.emailId).subscribe(
       message => {
+        
+        sessionStorage.setItem("cart", JSON.stringify(this.cartList));
         this.successMessage = message
+        this.ngOnInit();
       },
       err => {
         this.errorMessage = err
